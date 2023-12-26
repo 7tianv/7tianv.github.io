@@ -18,21 +18,37 @@
   <meta name="author" content="John Doe">
   <meta name="keywords" content="">
   
-    <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+    <meta name="description" content="Rclone配置磁盘并挂载到本地 rclone是一个命令行工具，可以在不同的云存储服务之间进行文件同步和传输，如Google DriveMicrosoft OneDrive等，提供了文件复制或同步模式、挂在网盘到本地等功能。本篇博文以OneDrive网盘为例提供配置Rclone和挂载网盘到本地的教程  ssh客户端：Finallshell 系统：Debian11 工具：Rclone, 网盘API">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://example.com/2023/12/25/hello-world/index.html">
+<meta property="og:title" content="clone配置磁盘并挂载到本地">
+<meta property="og:url" content="http://example.com/2023/12/26/Rclone%E6%8C%82%E8%BD%BDOneDrive%E7%BD%91%E7%9B%98%E5%88%B0VPS/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="Rclone配置磁盘并挂载到本地 rclone是一个命令行工具，可以在不同的云存储服务之间进行文件同步和传输，如Google DriveMicrosoft OneDrive等，提供了文件复制或同步模式、挂在网盘到本地等功能。本篇博文以OneDrive网盘为例提供配置Rclone和挂载网盘到本地的教程  ssh客户端：Finallshell 系统：Debian11 工具：Rclone, 网盘API">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2023-12-25T10:28:37.788Z">
-<meta property="article:modified_time" content="2023-12-25T10:28:37.788Z">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/xkuloe.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/xnaq8y.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/xownph.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/xqaerr.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/xtm4pg.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/xvgbpr.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/y1fug1.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/y23ml1.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/yqguyg.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/yxmww3.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/z4spwh.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/z9z8vp.png">
+<meta property="og:image" content="https://imags.pro/i/2023/08/04/zdqnkn.png">
+<meta property="article:published_time" content="2023-12-25T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-26T04:33:08.898Z">
 <meta property="article:author" content="John Doe">
+<meta property="article:tag" content="教程">
+<meta property="article:tag" content="rclone">
 <meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://imags.pro/i/2023/08/04/xkuloe.png">
   
   
   
-  <title>Hello World - Hexo</title>
+  <title>clone配置磁盘并挂载到本地 - Hexo</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -239,7 +255,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Hello World"></span>
+            <span id="subtitle" data-typed-text="clone配置磁盘并挂载到本地"></span>
           
         </div>
 
@@ -255,8 +271,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-25 18:28" pubdate>
-          星期一, 十二月 25日 2023, 6:28 晚上
+        <time datetime="2023-12-26 00:00" pubdate>
+          星期二, 十二月 26日 2023, 12:00 凌晨
         </time>
       </span>
     
@@ -268,7 +284,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          18 字
+          681 字
         
       </span>
     
@@ -280,7 +296,7 @@
         
         
           <!-- compatible with older versions-->
-          1 分钟
+          6 分钟
         
       </span>
     
@@ -317,25 +333,65 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Hello World</h1>
+            <h1 id="seo-header">clone配置磁盘并挂载到本地</h1>
             
             
               <div class="markdown-body">
                 
-                <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start">Quick Start</h2>
-<h3 id="Create-a-new-post">Create a new post</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo new <span class="hljs-string">&quot;My New Post&quot;</span><br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server">Run server</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo server<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files">Generate static files</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo generate<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites">Deploy to remote sites</h3>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash">$ hexo deploy<br></code></pre></td></tr></table></figure>
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+                <h2 id="Rclone配置磁盘并挂载到本地">Rclone配置磁盘并挂载到本地</h2>
+<p><code>rclone是一个命令行工具，可以在不同的云存储服务之间进行文件同步和传输，如Google DriveMicrosoft OneDrive等，提供了文件复制或同步模式、挂在网盘到本地等功能。本篇博文以OneDrive网盘为例提供配置Rclone和挂载网盘到本地的教程</code></p>
+<blockquote>
+<p>ssh客户端：Finallshell</p>
+<p>系统：Debian11</p>
+<p>工具：Rclone, 网盘API</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="安装rclone">安装rclone</h3>
+<p>首先，先更新系统，保证系统配置都为最新的</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><code class="hljs js">apt update -y<br>apt upgrade -y<br></code></pre></td></tr></table></figure>
+<p>如果你是Centos系统，请将 <code>apt</code> 更换为 <code>yum</code></p>
+<p>然后安装rclone</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">curl <span class="hljs-attr">https</span>:<span class="hljs-comment">//rclone.org/install.sh | sudo bash</span><br></code></pre></td></tr></table></figure>
+<p>安装完成之后输入<code>rclone config</code> 进入配置</p>
+<p>选择n新建一个网盘，在输入你想要的名称，最好不要带特殊符号，否则后续挂载会失败</p>
+<p><img src="https://imags.pro/i/2023/08/04/xkuloe.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>这里你是什么网盘就选择网盘对应的序号，博主使用的是OneDrive网盘，对应的是31，那么就输入31，然后回车</p>
+<p><img src="https://imags.pro/i/2023/08/04/xnaq8y.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><code>client_id</code> 和 <code>client_secret</code> 里分别填入你的应用ID和密钥，如何获取，本文不再赘述，请自行百度</p>
+<p><img src="https://imags.pro/i/2023/08/04/xownph.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>地区这里如果你是世纪互联的OD盘，选择4.其他默认选择1就行</p>
+<p><img src="https://imags.pro/i/2023/08/04/xqaerr.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>是否进行高级设置选n，是否使用默认api选n。然后填入你获取到的API</p>
+<p><img src="https://imags.pro/i/2023/08/04/xtm4pg.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/08/04/xvgbpr.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>然后默认会出现你的网盘信息，如果不出现，则是API设置出错，请自行排查</p>
+<p><img src="https://imags.pro/i/2023/08/04/y1fug1.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/08/04/y23ml1.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>到了这一步网盘已经配置好了，选q保存退出就行</p>
+<p><img src="https://imags.pro/i/2023/08/04/yqguyg.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="挂载网盘到本地">挂载网盘到本地</h3>
+<p>然后就开始挂载网盘到本地</p>
+<p>先新建一个 <code>/od</code> 目录</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">mkdir /od<br></code></pre></td></tr></table></figure>
+<p>赋予777权限</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">chmod</span> -R 777 /od<br></code></pre></td></tr></table></figure>
+<p>开始挂载，其中 <code>ani:</code> 是你rclone配置的网盘名称，<code>/od</code> 是你要挂载的目录</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">rclone mount <span class="hljs-attr">ani</span>: /od --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask <span class="hljs-number">000</span><br></code></pre></td></tr></table></figure>
+<p>如果出现 <code>Fatal error: failed to mount FUSE fs: fusermount: exec: &quot;fusermount3&quot;: executable file not found in $PATH</code> 的报错，尝试使用 <code>apt install fuse -y</code>，如果依旧报错，使用 <code>apt install fuse3 -y</code>即可解决</p>
+<p><img src="https://imags.pro/i/2023/08/04/yxmww3.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>可以看见左边已经出现挂载网盘的空间大小，证明已经成功挂载</p>
+<p><img src="https://imags.pro/i/2023/08/04/z4spwh.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<h3 id="设置开机自启">设置开机自启</h3>
+<p>但此时关闭ssh客户端会使挂载失效，使用nano命令配置开机自启</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">nano /etc/systemd/system/rclone.<span class="hljs-property">service</span><br></code></pre></td></tr></table></figure>
+<p>将下面的命令复制进去，注意将 <code>ani</code> 和 <code>/od</code> ，该为你自己的路径，如果出现格式错误，请将格式修改成和博主的一样</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs js">[<span class="hljs-title class_">Unit</span>]<br><span class="hljs-title class_">Description</span>=<span class="hljs-title class_">Rclone</span><br><span class="hljs-title class_">After</span>=network-online.<span class="hljs-property">target</span><br><br>[<span class="hljs-title class_">Service</span>]<br><span class="hljs-title class_">Type</span>=simple<br><span class="hljs-title class_">ExecStart</span>=rclone mount <span class="hljs-attr">ani</span>: /od --copy-links --no-gzip-encoding --no-check-certificate --allow-other --allow-non-empty --umask <span class="hljs-number">000</span><br><span class="hljs-title class_">Restart</span>=on-abort<br><span class="hljs-title class_">User</span>=root<br><br>[<span class="hljs-title class_">Install</span>]<br><span class="hljs-title class_">WantedBy</span>=<span class="hljs-keyword">default</span>.<span class="hljs-property">target</span><br></code></pre></td></tr></table></figure>
+<p>然后依次输入 <code>Ctrl+x</code> , <code>y</code> , 再回车</p>
+<p><img src="https://imags.pro/i/2023/08/04/z9z8vp.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>现在就可以使用 <code>systemctl</code>来挂载OneDrive了</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"># 开机自启<br>systemctl enable rclone<br># 启动<br>systemctl start rclone<br># 重启<br>systemctl restart  rclone<br># 查看状态<br>systemctl status rclone<br></code></pre></td></tr></table></figure>
+<p>输入 <code>systemctl status rclone</code> 显示 <code>runing</code> 说明正常运行，如果报错请自行排查</p>
+<p><img src="https://imags.pro/i/2023/08/04/zdqnkn.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 
                 
               </div>
@@ -344,6 +400,36 @@
             <div>
               <div class="post-metas my-3">
   
+    <div class="post-meta mr-3 d-flex align-items-center">
+      <i class="iconfont icon-category"></i>
+      
+
+<span class="category-chains">
+  
+  
+    
+      <span class="category-chain">
+        
+  <a href="/categories/%E6%95%99%E7%A8%8B/" class="category-chain-item">教程</a>
+  
+  
+
+      </span>
+    
+  
+</span>
+
+    </div>
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
+      
+        <a href="/tags/rclone/" class="print-no-link">#rclone</a>
+      
+    </div>
   
 </div>
 
@@ -353,8 +439,8 @@
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Hello World</div>
-      <div>http://example.com/2023/12/25/hello-world/</div>
+      <div>clone配置磁盘并挂载到本地</div>
+      <div>http://example.com/2023/12/26/Rclone挂载OneDrive网盘到VPS/</div>
     </div>
     <div class="license-meta">
       
@@ -366,9 +452,14 @@
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月25日</div>
+          <div>2023年12月26日</div>
         </div>
       
+      
+        <div class="license-meta-item license-meta-date">
+          <div>更新于</div>
+          <div>2023年12月26日</div>
+        </div>
       
       
         <div class="license-meta-item">
@@ -398,18 +489,12 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/26/Rclone%E6%8C%82%E8%BD%BDOneDrive%E7%BD%91%E7%9B%98%E5%88%B0VPS/" title="clone配置磁盘并挂载到本地">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">clone配置磁盘并挂载到本地</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/25/1Penal%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2Alist/" title="1Panel安装部署Alist教程">
-                        <span class="hidden-mobile">1Panel安装部署Alist教程</span>
+                      <a href="/2023/12/25/hello-world/" title="Hello World">
+                        <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
