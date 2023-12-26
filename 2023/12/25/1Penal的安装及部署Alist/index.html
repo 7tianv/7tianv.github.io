@@ -15,14 +15,14 @@
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
   
   <meta name="theme-color" content="#2f4154">
-  <meta name="author" content="John Doe">
+  <meta name="author" content="A大">
   <meta name="keywords" content="">
   
     <meta name="description" content="1Panel安装部署Alist教程  我们常用的可视化面板有宝塔，但由于宝塔的不可靠性，被众多人所诟病。因此，诞生了1Panel等新兴面板。本篇博文提供1Panel及安装Alist的教程  1Penal介绍：1Panel 是一个现代化、开源的 Linux 服务器运维管理面板。使用的是以docker容器形式管理服务，轻量化运行  演示服务器是Hetzner的2C2G40G的德国VPS 1Penal">
 <meta property="og:type" content="article">
 <meta property="og:title" content="1Panel安装部署Alist教程">
-<meta property="og:url" content="http://example.com/2023/12/25/1Penal%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2Alist/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:url" content="http://blog.qyide.cn/2023/12/25/1Penal%E7%9A%84%E5%AE%89%E8%A3%85%E5%8F%8A%E9%83%A8%E7%BD%B2Alist/index.html">
+<meta property="og:site_name" content="轻易博客">
 <meta property="og:description" content="1Panel安装部署Alist教程  我们常用的可视化面板有宝塔，但由于宝塔的不可靠性，被众多人所诟病。因此，诞生了1Panel等新兴面板。本篇博文提供1Panel及安装Alist的教程  1Penal介绍：1Panel 是一个现代化、开源的 Linux 服务器运维管理面板。使用的是以docker容器形式管理服务，轻量化运行  演示服务器是Hetzner的2C2G40G的德国VPS 1Penal">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://imags.pro/i/2023/08/12/gz10zy.png">
@@ -43,7 +43,7 @@
 <meta property="og:image" content="https://imags.pro/i/2023/08/12/j4dvxk.png">
 <meta property="article:published_time" content="2023-12-24T16:00:00.000Z">
 <meta property="article:modified_time" content="2023-12-26T03:41:04.935Z">
-<meta property="article:author" content="John Doe">
+<meta property="article:author" content="A大">
 <meta property="article:tag" content="alist">
 <meta property="article:tag" content="教程">
 <meta name="twitter:card" content="summary_large_image">
@@ -51,7 +51,7 @@
   
   
   
-  <title>1Panel安装部署Alist教程 - Hexo</title>
+  <title>1Panel安装部署Alist教程 - 轻易博客</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -89,7 +89,7 @@
   <script id="fluid-configs">
     var Fluid = window.Fluid || {};
     Fluid.ctx = Object.assign({}, Fluid.ctx)
-    var CONFIG = {"hostname":"example.com","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Wa5gX8tFfeF3DnN0MsuDWiyl-MdYXbMMI","app_key":"Vt6jcjzGKhbbWVuvLov1ikjT","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
+    var CONFIG = {"hostname":"blog.qyide.cn","root":"/","version":"1.9.7","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":true,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":"Wa5gX8tFfeF3DnN0MsuDWiyl-MdYXbMMI","app_key":"Vt6jcjzGKhbbWVuvLov1ikjT","server_url":null,"path":"window.location.pathname","ignore_local":false}},"search_path":"/local-search.xml","include_content_in_search":true};
 
     if (CONFIG.web_analytics.follow_dnt) {
       var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
@@ -268,7 +268,7 @@
     
       <span class="post-meta mr-2">
         <i class="iconfont icon-author" aria-hidden="true"></i>
-        John Doe
+        A大
       </span>
     
     
@@ -454,13 +454,13 @@
   <div class="license-box my-3">
     <div class="license-title">
       <div>1Panel安装部署Alist教程</div>
-      <div>http://example.com/2023/12/25/1Penal的安装及部署Alist/</div>
+      <div>http://blog.qyide.cn/2023/12/25/1Penal的安装及部署Alist/</div>
     </div>
     <div class="license-meta">
       
         <div class="license-meta-item">
           <div>作者</div>
-          <div>John Doe</div>
+          <div>A大</div>
         </div>
       
       
@@ -503,9 +503,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/25/Hytron%E5%B9%B4%E4%BB%9816.8%E5%88%80%E9%A6%99%E6%B8%AF%E5%B0%8F%E9%B8%A1%E6%B5%8B%E8%AF%84/" title="Hytron年付16.8刀香港小鸡评测">
+                      <a href="/2023/12/25/hello-world/" title="Hello World">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Hytron年付16.8刀香港小鸡评测</span>
+                        <span class="hidden-mobile">Hello World</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
