@@ -25,20 +25,20 @@
 <meta property="og:site_name" content="轻易博客">
 <meta property="og:description" content="OneNav导航站搭建教程  由于博主喜欢关注一些新奇的东西包括网站，久而久之，就积累了一些网站，但网站太多不好整理，就萌生出想做一个导航站的想法，因此，就有了本篇教程">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/u0vt02.png">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/u3ao32.png">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/u49jav.png">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/umwmfv.png">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/uo5ulu.png">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/vg1z25.png">
-<meta property="og:image" content="https://images.ccome.site/i/2023/06/25/vhxd43.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/u0vt02.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/u3ao32.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/u49jav.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/umwmfv.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/uo5ulu.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/vg1z25.png">
+<meta property="og:image" content="https://imags.pro/i/2023/06/25/vhxd43.png">
 <meta property="article:published_time" content="2023-12-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-26T06:42:35.019Z">
+<meta property="article:modified_time" content="2023-12-27T02:05:08.140Z">
 <meta property="article:author" content="A大">
 <meta property="article:tag" content="教程">
 <meta property="article:tag" content="onenav">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://images.ccome.site/i/2023/06/25/u0vt02.png">
+<meta name="twitter:image" content="https://imags.pro/i/2023/06/25/u0vt02.png">
   
   
   
@@ -358,27 +358,27 @@
 <li>PHP需支持pdo_sqlite组件</li>
 </ul>
 <p>首先新建站点</p>
-<p><img src="https://images.ccome.site/i/2023/06/25/u0vt02.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/06/25/u0vt02.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>访问项目地址：<a target="_blank" rel="noopener" href="https://github.com/helloxz/onenav/releases">https://github.com/helloxz/onenav/releases</a> 下载最新版本并解压到站点根目录</p>
-<p><img src="https://images.ccome.site/i/2023/06/25/u3ao32.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/06/25/u3ao32.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>访问您的站点首页设置初始用户名、密码</p>
-<p><img src="https://images.ccome.site/i/2023/06/25/u49jav.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/06/25/u49jav.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <h3 id="2-进行安全设置">2. 进行安全设置</h3>
 <p>回到宝塔，点击网站设置，选择伪静态，将下面的代码复制粘贴进去</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs js">rewrite ^<span class="hljs-regexp">/click/</span>(.*) /index.<span class="hljs-property">php</span>?c=click&amp;id=$1 <span class="hljs-keyword">break</span>;<br>rewrite ^<span class="hljs-regexp">/api/</span>(.*)?(.*) /index.<span class="hljs-property">php</span>?c=api&amp;method=$1&amp;$2 <span class="hljs-keyword">break</span>;<br>rewrite /login /index.<span class="hljs-property">php</span>?c=login <span class="hljs-keyword">break</span>;<br></code></pre></td></tr></table></figure>
-<p><img src="https://images.ccome.site/i/2023/06/25/umwmfv.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/06/25/umwmfv.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>在选择配置文件，也是将下面的代码复制粘贴进去</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs js">location ~* ^<span class="hljs-regexp">/(class|controller|db|data|functions|templates)/</span>.*.(db3|php|php5|sql)$ &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-number">403</span>;<br>&#125;<br>location ~* ^<span class="hljs-regexp">/(data)/</span>.*.(html)$ &#123;<br>        deny all;<br>&#125;<br>location /db &#123;<br>        deny all;<br>&#125;<br></code></pre></td></tr></table></figure>
-<p><img src="https://images.ccome.site/i/2023/06/25/uo5ulu.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/06/25/uo5ulu.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>然后点击保存，就完成了</p>
 <h3 id="3-更换主题">3. 更换主题</h3>
 <p>OneNav默认主题不怎么好看，可以使用博主提供主题，链接放在博文最后</p>
 <p>进去你的网站目录，找到<code>/templates</code>文件夹，将博主提供的主题解压并上传到文件夹内</p>
-<p><img src="https://images.ccome.site/i/2023/06/25/vg1z25.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p><img src="https://imags.pro/i/2023/06/25/vg1z25.png" srcset="/img/loading.gif" lazyload alt="image"></p>
 <p>最后在网站后台挑选喜欢的主题并应用就可以了</p>
 <ul>
 <li>效果图：<br>
-<img src="https://images.ccome.site/i/2023/06/25/vhxd43.png" srcset="/img/loading.gif" lazyload alt="image"></li>
+<img src="https://imags.pro/i/2023/06/25/vhxd43.png" srcset="/img/loading.gif" lazyload alt="image"></li>
 </ul>
 <p>Github地址：<a target="_blank" rel="noopener" href="https://github.com/helloxz/onenav/releases">https://github.com/helloxz/onenav/releases</a></p>
 <p>主题下载地址：<a target="_blank" rel="noopener" href="https://alist.ccome.site/123%E4%BA%91%E7%9B%98/%E7%BD%91%E7%AB%99&amp;%E5%8D%9A%E5%AE%A2%E7%B1%BB/OneNav%E4%B8%BB%E9%A2%98">https://alist.ccome.site/123云盘/网站&amp;博客类/OneNav主题</a></p>
@@ -448,7 +448,7 @@
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月26日</div>
+          <div>2023年12月27日</div>
         </div>
       
       
@@ -479,9 +479,9 @@
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/25/Looking-glass%20Server%EF%BC%8C%E6%B5%8B%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9B%9E%E7%A8%8B%E3%80%81%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6/" title="Looking-glass Server，测试服务器回程、下载速度">
+                      <a href="/2023/12/25/Nastool+Rclone+Qbittorrent+Emby+Google%20Drive%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2/" title="Nastool+Rclone+Qbittorrent+Emby+Google Drive搭建私人家庭影院">
                         <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">Looking-glass Server，测试服务器回程、下载速度</span>
+                        <span class="hidden-mobile">Nastool+Rclone+Qbittorrent+Emby+Google Drive搭建私人家庭影院</span>
                         <span class="visible-mobile">上一篇</span>
                       </a>
                     
@@ -489,8 +489,8 @@
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/25/Nastool+Rclone+Qbittorrent+Emby+Google%20Drive%E6%90%AD%E5%BB%BA%E7%A7%81%E4%BA%BA%E5%AE%B6%E5%BA%AD%E5%BD%B1%E9%99%A2/" title="Nastool+Rclone+Qbittorrent+Emby+Google Drive搭建私人家庭影院">
-                        <span class="hidden-mobile">Nastool+Rclone+Qbittorrent+Emby+Google Drive搭建私人家庭影院</span>
+                      <a href="/2023/12/25/SpeedyPage%20%E5%B0%8F%E9%B8%A1%E6%B5%8B%E8%AF%84/" title="SpeedyPage 小鸡测评">
+                        <span class="hidden-mobile">SpeedyPage 小鸡测评</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
