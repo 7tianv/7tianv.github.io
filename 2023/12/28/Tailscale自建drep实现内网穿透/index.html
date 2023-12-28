@@ -18,25 +18,28 @@
   <meta name="author" content="A大">
   <meta name="keywords" content="">
   
-    <meta name="description" content="玩服务器最关心的莫过于网络状况，这其中包括服务器的网络延时、线路和速度等，按照正常操作每种情况都需要分开检测，那么有没有一个工具可以把这几项检测都包含进去呢？答案肯定是有的，那就是LookingGlass，一般服务器商家都会有提供这个页面以供测试，当然也有很多商家没有，这种时候就需要我们自己搭建LookingGlass了。">
+    <meta name="description" content="很多人都有特殊需求需要远程访问家庭内网环境，但基本都没有公网ip。即使是有公网ip的服务器，使用frp等将内网映射到公网存在不安全隐患，因此本篇教程通过Tailscale自建drep实现低延迟访问内网并保证安全性。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Looking-glass Server，测试服务器回程、下载速度">
-<meta property="og:url" content="http://blog.qyide.cn/2023/12/25/Looking-glass%20Server%EF%BC%8C%E6%B5%8B%E8%AF%95%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9B%9E%E7%A8%8B%E3%80%81%E4%B8%8B%E8%BD%BD%E9%80%9F%E5%BA%A6/index.html">
+<meta property="og:title" content="Tailscale自建drep实现低延迟访问内网">
+<meta property="og:url" content="http://blog.qyide.cn/2023/12/28/Tailscale%E8%87%AA%E5%BB%BAdrep%E5%AE%9E%E7%8E%B0%E5%86%85%E7%BD%91%E7%A9%BF%E9%80%8F/index.html">
 <meta property="og:site_name" content="轻易blog">
-<meta property="og:description" content="玩服务器最关心的莫过于网络状况，这其中包括服务器的网络延时、线路和速度等，按照正常操作每种情况都需要分开检测，那么有没有一个工具可以把这几项检测都包含进去呢？答案肯定是有的，那就是LookingGlass，一般服务器商家都会有提供这个页面以供测试，当然也有很多商家没有，这种时候就需要我们自己搭建LookingGlass了。">
+<meta property="og:description" content="很多人都有特殊需求需要远程访问家庭内网环境，但基本都没有公网ip。即使是有公网ip的服务器，使用frp等将内网映射到公网存在不安全隐患，因此本篇教程通过Tailscale自建drep实现低延迟访问内网并保证安全性。">
 <meta property="og:locale" content="zh_CN">
-<meta property="og:image" content="https://imags.pro/i/2023/11/30/h9w5g8.png">
-<meta property="article:published_time" content="2023-12-24T16:00:00.000Z">
-<meta property="article:modified_time" content="2023-12-26T06:42:23.649Z">
+<meta property="og:image" content="https://imags.pro/i/2023/12/28/f7faq8.jpeg">
+<meta property="og:image" content="https://imags.pro/i/2023/12/28/f97c8r.jpeg">
+<meta property="og:image" content="https://imags.pro/i/2023/12/28/fj97zy.jpeg">
+<meta property="og:image" content="https://imags.pro/i/2023/12/28/fmy5sh.jpeg">
+<meta property="article:published_time" content="2023-12-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2023-12-28T02:24:26.979Z">
 <meta property="article:author" content="A大">
 <meta property="article:tag" content="教程">
-<meta property="article:tag" content="vps">
+<meta property="article:tag" content="Tailscale">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://imags.pro/i/2023/11/30/h9w5g8.png">
+<meta name="twitter:image" content="https://imags.pro/i/2023/12/28/f7faq8.jpeg">
   
   
   
-  <title>Looking-glass Server，测试服务器回程、下载速度 - 轻易blog</title>
+  <title>Tailscale自建drep实现低延迟访问内网 - 轻易blog</title>
 
   <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
 
@@ -243,7 +246,7 @@
       <div class="banner-text text-center fade-in-up">
         <div class="h2">
           
-            <span id="subtitle" data-typed-text="Looking-glass Server，测试服务器回程、下载速度"></span>
+            <span id="subtitle" data-typed-text="Tailscale自建drep实现低延迟访问内网"></span>
           
         </div>
 
@@ -259,8 +262,8 @@
     
       <span class="post-meta">
         <i class="iconfont icon-date-fill" aria-hidden="true"></i>
-        <time datetime="2023-12-25 00:00" pubdate>
-          2023年12月25日 凌晨
+        <time datetime="2023-12-28 00:00" pubdate>
+          2023年12月28日 凌晨
         </time>
       </span>
     
@@ -272,7 +275,7 @@
         <i class="iconfont icon-chart"></i>
         
           <!-- compatible with older versions-->
-          267 字
+          1.1k 字
         
       </span>
     
@@ -284,7 +287,7 @@
         
         
           <!-- compatible with older versions-->
-          3 分钟
+          10 分钟
         
       </span>
     
@@ -329,22 +332,74 @@
       <div class="container nopadding-x-md" id="board-ctn">
         <div id="board">
           <article class="post-content mx-auto">
-            <h1 id="seo-header">Looking-glass Server，测试服务器回程、下载速度</h1>
+            <h1 id="seo-header">Tailscale自建drep实现低延迟访问内网</h1>
             
             
               <div class="markdown-body">
                 
-                <p>玩服务器最关心的莫过于网络状况，这其中包括服务器的网络延时、线路和速度等，按照正常操作每种情况都需要分开检测，那么有没有一个工具可以把这几项检测都包含进去呢？答案肯定是有的，那就是LookingGlass，一般服务器商家都会有提供这个页面以供测试，当然也有很多商家没有，这种时候就需要我们自己搭建LookingGlass了。</p>
+                <p>很多人都有特殊需求需要远程访问家庭内网环境，但基本都没有公网ip。即使是有公网ip的服务器，使用frp等将内网映射到公网存在不安全隐患，因此本篇教程通过Tailscale自建drep实现低延迟访问内网并保证安全性。</p>
 <span id="more"></span>
-<p>LookingGlass项目有好几种，这里推荐wiki家的开源项目：ALS - Another Looking-glass Server，项目包含ping测试、回程线路测试、iperf3测试、HTML 5 在线测速、下载文件测速、网卡流量监控等功能；这里推荐使用wiki的项目：<a target="_blank" rel="noopener" href="https://github.com/wikihost-opensource/als">https://github.com/wikihost-opensource/als</a></p>
-<p>项目依赖于docker安装，请提前配置好docker环境</p>
-<p>docker run -d --restart always <br>
-–name lookingglass <br>
--e HTTP_PORT=8800 <br>
--p 8800:8800 <br>
-wikihostinc/looking-glass-server</p>
-<p>使用上面的命令创建好之后，浏览器访问：<a target="_blank" rel="noopener" href="http://ip:8800">http://ip:8800</a>， 即可测试你的服务器到你地区的网络情况</p>
-<p><img src="https://imags.pro/i/2023/11/30/h9w5g8.png" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>Tailscale自建drep实现低延迟访问内网</p>
+<figure class="highlight armasm"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><code class="hljs armasm">适合环境：<br><br>有自己的公网<span class="hljs-built_in">IP</span> (推荐)<br><br>本地ipv6环境<br><br>域名一枚<br><br><span class="hljs-symbol">SSL</span>证书<br><br>会一点命令基础<br></code></pre></td></tr></table></figure>
+<ol>
+<li>注册Tailscale</li>
+</ol>
+<p><a target="_blank" rel="noopener" href="https://login.tailscale.com/">https://login.tailscale.com/</a>，进入这个网站注册好你的账户，并添加你的设备，如看不懂英文可使用浏览器自带的网页翻译功能</p>
+<p>如果你没有公网ip，到这一步就可以直接使用了。</p>
+<ol start="2">
+<li>自建derp</li>
+</ol>
+<p>由于官方自带的derp都在国外，在国内连接延迟高，速度慢，同时又有太多人使用，安全性也得不到保证，因此使用自建的derp中继节点</p>
+<p>derp需要域名，如果是国内服务器，域名需要备案，国外的则不需要，国外服务器最好选择香港，台湾，日本等地方，这些地区离国内近，延迟相对来说比较低</p>
+<p>2.1 申请证书</p>
+<p>首先要将你的公网IP解析到你的域名，然后创建 /root/certs 文件夹</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-built_in">mkdir</span> -p /root/certs<br></code></pre></td></tr></table></figure>
+<p>安装 acme ，并申请证书</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs bash">apt install socat -y<br>curl https://get.acme.sh | sh<br>~/.acme.sh/acme.sh --register-account -m xxxxx@gmail.com<br>~/.acme.sh/acme.sh --issue -d derp.xxx.com --standalone<br>~/.acme.sh/acme.sh --installcert -d derp.xxx.comg --key-file /root/certs/derp.xxx.com.key --fullchain-file /root/certs/derp.xxx.com.crt<br></code></pre></td></tr></table></figure>
+<p>注意将命令中的 <a href="mailto:xxxx@gmail.com">xxxx@gmail.com</a> 改为你自己的邮箱，derp.xxx.com改为你自己的域名，证书格式一定要是 derp.xxx.com.crt 和 derp.xxx.com.key</p>
+<p>2.2 docker安装derp</p>
+<p>本文默认你已经安装好了docker，如果没有安装请参考这个教程进行安装 <a target="_blank" rel="noopener" href="https://u.sb/debian-install-docker/">https://u.sb/debian-install-docker/</a></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br>  --name derper -p 57860:12345 -p 57861:3478/udp \<br>  -v /root/certs/:/app/certs \<br>  -e DERP_CERT_MODE=manual \<br>  -e DERP_ADDR=:12345 \<br>  -e DERP_DOMAIN=derp.xxx.com \<br>  -e DERP_VERIFY_CLIENTS=<span class="hljs-literal">true</span> \<br>  -d fredliang/derper:latest<br></code></pre></td></tr></table></figure>
+<p>安装完成后访问 <a target="_blank" rel="noopener" href="https://derp.xxx.com:57860">https://derp.xxx.com:57860</a> ，出现这个页面说明配置成功</p>
+<p><img src="https://imags.pro/i/2023/12/28/f7faq8.jpeg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<ol start="3">
+<li>使用自建的derp服务器</li>
+</ol>
+<p>登录到Tailscale网站，找到Access Controls，添加一个自建的derp服务器，如下图所示</p>
+<p><img src="https://imags.pro/i/2023/12/28/f97c8r.jpeg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<ol start="4">
+<li>通过Tailscale客户端连接到自建的derp服务器</li>
+</ol>
+<p>按照以下的配置模板填入</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><code class="hljs bash"><span class="hljs-string">&quot;derpMap&quot;</span>: &#123;<br>		<span class="hljs-string">&quot;OmitDefaultRegions&quot;</span>: <span class="hljs-literal">true</span>,<br>		<span class="hljs-string">&quot;Regions&quot;</span>: &#123;<br>			<span class="hljs-string">&quot;900&quot;</span>: &#123;<br>				<span class="hljs-string">&quot;RegionID&quot;</span>:   900,<br>				<span class="hljs-string">&quot;RegionCode&quot;</span>: <span class="hljs-string">&quot;ip&quot;</span>,<br>				<span class="hljs-string">&quot;RegionName&quot;</span>: <span class="hljs-string">&quot;Telecom Jiujiang&quot;</span>,<br>				<span class="hljs-string">&quot;Nodes&quot;</span>: [<br>					&#123;<br>						<span class="hljs-string">&quot;Name&quot;</span>:             <span class="hljs-string">&quot;900a&quot;</span>,<br>						<span class="hljs-string">&quot;RegionID&quot;</span>:         900,<br>						<span class="hljs-string">&quot;DERPPort&quot;</span>:         57860,<br>						<span class="hljs-string">&quot;STUNPort&quot;</span>:         57861,<br>						<span class="hljs-string">&quot;HostName&quot;</span>:         <span class="hljs-string">&quot;derp.xxx.ccom&quot;</span>,<br>						<span class="hljs-string">&quot;InsecureForTests&quot;</span>: <span class="hljs-literal">true</span>,<br>					&#125;,<br>				],<br>			&#125;,<br>    &#125;,<br>	&#125;<br></code></pre></td></tr></table></figure>
+<p>如果你只想使用自建的derp服务，将 <code>OmitDefaultRegions</code> 设为true，如果你想创建多个derp服务，代码中的 <code>RegionID</code> 不能相同，<code>RegionCode</code> <code>RegionNam</code> 这两个可以自定义，方便自己管理。</p>
+<p>最后点击左下角的 <code>save</code> 保存即可。</p>
+<ol start="5">
+<li>测试使用</li>
+</ol>
+<p>使用 <code>tailscale netcheck</code> 命令可以查看你的derp节点</p>
+<p><img src="https://imags.pro/i/2023/12/28/fj97zy.jpeg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<p>使用 <code>tailscale status</code> 命令可以查看你是什么模式，显示 direct 表示你正在使用直连，网络速度取决于的宽带上传</p>
+<blockquote>
+<p>因此，我推荐在有公网ipv6的双端上使用，双端又公网ipv6很容易打洞成功，直接直连使用，而且目前宽带对ipv6的上传限制不是很大，所以用ipv6访问速度非常快，可以达到秒开家里内网4k视频的效果</p>
+</blockquote>
+<p><img src="https://imags.pro/i/2023/12/28/fmy5sh.jpeg" srcset="/img/loading.gif" lazyload alt="image"></p>
+<blockquote>
+<p>如果显示的是你derp名称，说明打洞失败，使用的是你服务器的公网，速度取决于你服务器的带宽大小，一般是ipv4打洞失败</p>
+</blockquote>
+<p>如果不清楚你网络是否具体ipv6，可以打开 <a target="_blank" rel="noopener" href="https://ipv6.test6.ustc.edu.cn">https://ipv6.test6.ustc.edu.cn</a> ，正常打开就说明有ipv6，同时也可以测试你本地的ipv6上传速度。</p>
+<ol start="6">
+<li>防止 DERP 被白嫖</li>
+</ol>
+<p>如果你是自建的derp，默认情况下是可以被白嫖，只要别人知道你的derp地址和端口就可以直接使用，因此我们需要修改配置来防止被白嫖。</p>
+<p>在derp服务器上安装Tailscale，然后执行以下命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs bash">docker run --restart always \<br>  --name derper -p 57860:12345 -p 57861:3478/udp \<br>  -v /root/certs/:/app/certs \<br>  -e DERP_CERT_MODE=manual \<br>  -e DERP_ADDR=:12345 \<br>  -e DERP_DOMAIN=derp.xxx.com \<br>  -e DERP_VERIFY_CLIENTS=<span class="hljs-literal">true</span> \<br>  -v /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock \<br>  -d fredliang/derper:latest<br></code></pre></td></tr></table></figure>
+<blockquote>
+<p>快去愉快的开始你的看片之旅吧！</p>
+</blockquote>
+<blockquote>
+<p>有什么欢迎在评论区留言</p>
+</blockquote>
 
                 
               </div>
@@ -380,7 +435,7 @@ wikihostinc/looking-glass-server</p>
       
         <a href="/tags/%E6%95%99%E7%A8%8B/" class="print-no-link">#教程</a>
       
-        <a href="/tags/vps/" class="print-no-link">#vps</a>
+        <a href="/tags/Tailscale/" class="print-no-link">#Tailscale</a>
       
     </div>
   
@@ -392,8 +447,8 @@ wikihostinc/looking-glass-server</p>
 
   <div class="license-box my-3">
     <div class="license-title">
-      <div>Looking-glass Server，测试服务器回程、下载速度</div>
-      <div>http://blog.qyide.cn/2023/12/25/Looking-glass Server，测试服务器回程、下载速度/</div>
+      <div>Tailscale自建drep实现低延迟访问内网</div>
+      <div>http://blog.qyide.cn/2023/12/28/Tailscale自建drep实现内网穿透/</div>
     </div>
     <div class="license-meta">
       
@@ -405,13 +460,13 @@ wikihostinc/looking-glass-server</p>
       
         <div class="license-meta-item license-meta-date">
           <div>发布于</div>
-          <div>2023年12月25日</div>
+          <div>2023年12月28日</div>
         </div>
       
       
         <div class="license-meta-item license-meta-date">
           <div>更新于</div>
-          <div>2023年12月26日</div>
+          <div>2023年12月28日</div>
         </div>
       
       
@@ -442,18 +497,12 @@ wikihostinc/looking-glass-server</p>
                   <article class="post-prev col-6">
                     
                     
-                      <a href="/2023/12/25/OneNav%E5%AF%BC%E8%88%AA%E7%AB%99%E6%90%AD%E5%BB%BA%E6%95%99%E7%A8%8B/" title="OneNav导航站搭建教程">
-                        <i class="iconfont icon-arrowleft"></i>
-                        <span class="hidden-mobile">OneNav导航站搭建教程</span>
-                        <span class="visible-mobile">上一篇</span>
-                      </a>
-                    
                   </article>
                   <article class="post-next col-6">
                     
                     
-                      <a href="/2023/12/25/Hytron%E5%B9%B4%E4%BB%9816.8%E5%88%80%E9%A6%99%E6%B8%AF%E5%B0%8F%E9%B8%A1%E6%B5%8B%E8%AF%84/" title="Hytron年付16.8刀香港小鸡评测">
-                        <span class="hidden-mobile">Hytron年付16.8刀香港小鸡评测</span>
+                      <a href="/2023/12/26/Rclone%E6%8C%82%E8%BD%BDOneDrive%E7%BD%91%E7%9B%98%E5%88%B0VPS/" title="rclone配置磁盘并挂载到本地">
+                        <span class="hidden-mobile">rclone配置磁盘并挂载到本地</span>
                         <span class="visible-mobile">下一篇</span>
                         <i class="iconfont icon-arrowright"></i>
                       </a>
